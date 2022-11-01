@@ -7,8 +7,8 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/mark1002/hackernews/graph/generated"
-	"github.com/mark1002/hackernews/graph/model"
+	"github.com/mark1002/graphsql-pratice/graph/generated"
+	"github.com/mark1002/graphsql-pratice/graph/model"
 )
 
 // CreateLink is the resolver for the createLink field.
