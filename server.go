@@ -9,7 +9,7 @@ import (
 	"github.com/99designs/gqlgen/graphql/playground"
 	"github.com/mark1002/graphsql-pratice/graph"
 	"github.com/mark1002/graphsql-pratice/graph/generated"
-	"github.com/mark1002/graphsql-pratice/internal/pkg/db"
+	database "github.com/mark1002/graphsql-pratice/internal/pkg/db/mysql"
 )
 
 const defaultPort = "8080"
@@ -19,9 +19,9 @@ func main() {
 	if port == "" {
 		port = defaultPort
 	}
-	db.InitDB()
-	defer db.CloseDB()
-	db.Migrate()
+	database.InitDB()
+	defer database.CloseDB()
+	database.Migrate()
 	srv := handler.NewDefaultServer(generated.NewExecutableSchema(generated.Config{Resolvers: &graph.Resolver{}}))
 
 	http.Handle("/", playground.Handler("GraphQL playground", "/query"))

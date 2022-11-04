@@ -6,22 +6,29 @@ package graph
 import (
 	"context"
 	"fmt"
+	"strconv"
 
 	"github.com/mark1002/graphsql-pratice/graph/generated"
 	"github.com/mark1002/graphsql-pratice/graph/model"
+	"github.com/mark1002/graphsql-pratice/internal/links"
 )
 
 // CreateLink is the resolver for the createLink field.
 func (r *mutationResolver) CreateLink(ctx context.Context, input model.NewLink) (*model.Link, error) {
+	link := links.Link{
+		Title:   input.Title,
+		Address: input.Address,
+	}
+	linkID := link.Save()
 	user := model.User{
 		Name: "test",
 	}
-	link := model.Link{
-		Address: input.Address,
-		Title:   input.Title,
+	return &model.Link{
+		ID:      strconv.FormatInt(linkID, 10),
+		Address: link.Address,
+		Title:   link.Title,
 		User:    &user,
-	}
-	return &link, nil
+	}, nil
 }
 
 // CreateUser is the resolver for the createUser field.
