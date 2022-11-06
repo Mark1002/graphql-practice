@@ -81,3 +81,9 @@ func CheckPasswordHash(password, hash string) bool {
 	err := bcrypt.CompareHashAndPassword([]byte(hash), []byte(password))
 	return err == nil
 }
+
+type WrongUsernameOrPasswordError struct{}
+
+func (m *WrongUsernameOrPasswordError) Error() string {
+	return "wrong username or password"
+}
